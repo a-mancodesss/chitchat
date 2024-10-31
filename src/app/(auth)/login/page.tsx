@@ -13,7 +13,6 @@ const page = () => {
     setIsLoading(true)
     try {
       await signIn('google')
-      console.log('*************okay reaching here***************')
     } catch (error) {
       // display error message to user
       toast.error('Something went wrong with your login!!!')

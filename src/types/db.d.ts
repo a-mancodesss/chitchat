@@ -1,6 +1,6 @@
 export interface User{
     name:string;
-    mail:string;
+    email:string;
     image:string;
     id:string;
 }
