@@ -1,8 +1,7 @@
 import { NextAuthOptions } from "next-auth";
-import { UpstashRedisAdapter } from "@auth/upstash-redis-adapter";
+import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
 import { db } from "./db";
-import GoogleProvider from 'next-auth/providers/google'
-import { signIn } from "next-auth/react";
+import GoogleProvider from "next-auth/providers/google";
 import { User } from "@/types/db";
 const getGoogleCredentials = () => {
     const clientId= process.env.GOOGLE_CLIENT_ID
@@ -18,12 +17,13 @@ const getGoogleCredentials = () => {
     return{clientId,clientSecret}
 }
 export const authOptions: NextAuthOptions = {
+    
     adapter: UpstashRedisAdapter(db),
     session: {
         strategy: "jwt",
     },
     pages: {
-        signIn: '/login'
+        signIn: '/login',
     },
     providers: [
         GoogleProvider({
@@ -59,5 +59,5 @@ export const authOptions: NextAuthOptions = {
     redirect(){
         return '/dashboard'
     }
-}
+},
 }
