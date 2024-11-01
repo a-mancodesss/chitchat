@@ -1,4 +1,4 @@
-import { fetchRedis } from "@/helper/redits"
+import { fetchRedis } from "@/helper/redis"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { addFriendValidator } from "@/lib/validators/add-friend"

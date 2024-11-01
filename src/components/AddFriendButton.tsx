@@ -59,7 +59,7 @@ const AddFriendButton: FC<AddFriendButtonProps> = ({}) => {
       <label
         htmlFor='email'
         className=''>
-        Add friend by email
+        Enter you friend's email below
       </label>
 
       <div className='mt-2 flex gap-4'>

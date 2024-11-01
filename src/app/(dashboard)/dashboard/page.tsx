@@ -1,10 +1,14 @@
-import { authOptions } from '@/lib/auth'
-import { getServerSession } from 'next-auth'
+import Link from 'next/link'
+import { FC } from 'react'
 
- const page = async() => {
-  const session = await getServerSession(authOptions)
+const page: FC = () => {
   return (
-    <div>The session:   {JSON.stringify(session)}</div>
+    <main className='pt-8'>
+      <Link href='/dashboard/add'>
+      Add Page
+      </Link>
+    </main>
   )
 }
+
 export default page
