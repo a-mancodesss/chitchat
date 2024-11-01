@@ -1,81 +1,81 @@
-"use client"
+'use client'
 
-import {
-  toast
-} from "sonner"
-import {
-  useForm
-} from "react-hook-form"
-import {
-  zodResolver
-} from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { addFriendValidator } from '@/lib/validators/add-friend'
+import axios, { AxiosError } from 'axios'
+import { FC, useState } from 'react'
+import { Button } from './ui/button'
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Input } from './ui/input'
 
-import {
-  Button
-} from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import {
-  Input
-} from "@/components/ui/input"
 
-const formSchema = z.object({
-  email: z.string()
-});
+interface AddFriendButtonProps {}
 
-export default function AddFriendForm() {
+type FormData = z.infer<typeof addFriendValidator>
 
-  const form = useForm < z.infer < typeof formSchema >> ({
-    resolver: zodResolver(formSchema),
+const AddFriendButton: FC<AddFriendButtonProps> = ({}) => {
+  const [showSuccessState, setShowSuccessState] = useState<boolean>(false)
 
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(addFriendValidator),
   })
 
-  function onSubmit(values: z.infer < typeof formSchema > ) {
+  const addFriend = async (email: string) => {
     try {
-      console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      );
+      const validatedEmail = addFriendValidator.parse({ email })
+
+      await axios.post('/api/friends/add', {
+        email: validatedEmail,
+      })
+
+      setShowSuccessState(true)
     } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
+      if (error instanceof z.ZodError) {
+        setError('email', { message: error.message })
+        return
+      }
+
+      if (error instanceof AxiosError) {
+        setError('email', { message: error.response?.data })
+        return
+      }
+
+      setError('email', { message: 'Something went wrong.' })
     }
   }
 
+  const onSubmit = (data: FormData) => {
+    addFriend(data.email)
+  }
+
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-xl mx-auto py-10 ">
-        
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-4xl sm:text-5xl">Add friend</FormLabel>
-              <FormControl>
-                <Input 
-                placeholder="yourname@mail.com"
-                
-                type="email"
-                {...field} />
-              </FormControl>
-              
-              <FormMessage />
-            </FormItem>
-          )}
+    <form onSubmit={handleSubmit(onSubmit)} className='max-w-sm'>
+      <label
+        htmlFor='email'
+        className=''>
+        Add friend by email
+      </label>
+
+      <div className='mt-2 flex gap-4'>
+        <Input 
+          {...register('email')}
+          type='text'
+          placeholder='you@example.com'
         />
-        <Button type="submit">Add </Button>
-      </form>
-    </Form>
+        <Button>Add</Button>
+      </div>
+      <p className='mt-1 text-sm text-red-600'>{errors.email?.message}</p>
+      {showSuccessState ? (
+        <p className='mt-1 text-sm text-green-600'>Friend request sent!</p>
+      ) : null}
+    </form>
   )
 }
+
+export default AddFriendButton

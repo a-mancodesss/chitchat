@@ -6,7 +6,7 @@ export default function LandingPage() {
     <div className="parent">
       <div className="container mx-auto px-4 py-8 flex flex-col justify-between">
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-lime-800 md:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-bold text-lime-600 md:text-5xl lg:text-6xl">
             ChitChat
           </h1>
           <p className="text-xl text-lime-600 mt-2">Realtime chat app!</p>
@@ -19,7 +19,7 @@ export default function LandingPage() {
           <p className="text-gray-600 mb-8 md:text-lg">
             Experience the future of communication with ChitChat. Our realtime chat app brings people together, no matter where they are in the world.
           </p>
-          <Button className="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105">
+          <Button className="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-[1.05]">
             <Link href="/login"> 
             Get Started
             </Link>

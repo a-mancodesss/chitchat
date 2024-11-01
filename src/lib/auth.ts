@@ -56,7 +56,7 @@ export const authOptions: NextAuthOptions = {
               return session
     
     },
-    redirect(){
+    redirect({url,baseUrl}){
         return '/dashboard'
     }
 },

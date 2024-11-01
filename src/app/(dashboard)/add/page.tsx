@@ -3,8 +3,8 @@ import React from 'react'
 
 export default function page() {
   return (
-  <div className='px-4'>
-  <AddFriendForm/>
-  </div>
+  <main className='pt-8'>
+    <AddFriendForm/>
+    </main>
   )
 }
