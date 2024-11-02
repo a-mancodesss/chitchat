@@ -23,6 +23,8 @@
     "next": "15.0.2",
     "next-auth": "^4.24.10",
     "next-themes": "^0.3.0",
+    "pusher": "^5.2.0",
+    "pusher-js": "^8.4.0-rc2",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
     "react-hook-form": "^7.53.1",

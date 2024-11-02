@@ -35,7 +35,7 @@ const sidebarOptions: SidebarOption[] = [
 
 const Layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions)
-  console.log(session)
+  // console.log(session)
   if (!session) notFound()
 
   const friends = await getFriendsByUserId(session.user.id)
@@ -59,7 +59,7 @@ const Layout = async ({ children }: LayoutProps) => {
         /> */}
       </div>
 
-      <div className='hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-lime-50 px-6'>
+      <div className='hidden md:flex h-full w-full max-w-sm grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-lime-50 px-6'>
         <Link href='/dashboard' className='flex h-16 shrink-0 items-center'>
           <Icons.Logo className='h-8 w-auto text-lime-600' />
         </Link>
