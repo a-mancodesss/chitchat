@@ -35,6 +35,7 @@ const sidebarOptions: SidebarOption[] = [
 
 const Layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions)
+  console.log(session)
   if (!session) notFound()
 
   const friends = await getFriendsByUserId(session.user.id)
@@ -58,9 +59,9 @@ const Layout = async ({ children }: LayoutProps) => {
         /> */}
       </div>
 
-      <div className='hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6'>
+      <div className='hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-lime-50 px-6'>
         <Link href='/dashboard' className='flex h-16 shrink-0 items-center'>
-          <Icons.Logo className='h-8 w-auto text-indigo-600' />
+          <Icons.Logo className='h-8 w-auto text-lime-600' />
         </Link>
 
         {friends.length > 0 ? (
@@ -86,8 +87,8 @@ const Layout = async ({ children }: LayoutProps) => {
                     <li key={option.id}>
                       <Link
                         href={option.href}
-                        className='text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold'>
-                        <span className='text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white'>
+                        className='text-gray-700 hover:text-lime-600 hover:bg-gray-50 group flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold'>
+                        <span className='text-gray-400 border-gray-200 group-hover:border-lime-600 group-hover:text-lime-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white'>
                           <Icon className='h-4 w-4' />
                         </span>
 
@@ -108,12 +109,12 @@ const Layout = async ({ children }: LayoutProps) => {
 
             <li className='-mx-6 mt-auto flex items-center'>
               <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900'>
-                <div className='relative h-8 w-8 bg-gray-50'>
+                <div className='relative h-8 w-8 bg-transparent'>
                   <Image
                     fill
                     referrerPolicy='no-referrer'
                     className='rounded-full'
-                    src={session.user.image || ''}
+                    src={session.user.image||""}
                     alt='Your profile picture'
                   />
                 </div>
