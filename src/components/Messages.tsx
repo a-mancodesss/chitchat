@@ -3,6 +3,7 @@
 import { pusherClient } from '@/lib/pusher'
 import { cn, toPusherKey } from '@/lib/utils'
 import { Message } from '@/lib/validators/message'
+import { User } from '@/types/db'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import { FC, useEffect, useRef, useState } from 'react'
@@ -78,8 +79,8 @@ const Messages: FC<MessagesProps> = ({
                   }
                 )}>
                 <span
-                  className={cn('px-4 py-2 rounded-lg inline-block', {
-                    'bg-indigo-600 text-white': isCurrentUser,
+                  className={cn('px-4 py-2 rounded-full inline-block', {
+                    'bg-lime-600 text-white': isCurrentUser,
                     'bg-gray-200 text-gray-900': !isCurrentUser,
                     'rounded-br-none':
                       !hasNextMessageFromSameUser && isCurrentUser,
@@ -87,7 +88,7 @@ const Messages: FC<MessagesProps> = ({
                       !hasNextMessageFromSameUser && !isCurrentUser,
                   })}>
                   {message.text}{' '}
-                  <span className='ml-2 text-xs text-gray-400'>
+                  <span className='ml-2 text-xs '>
                     {formatTimestamp(message.timestamp)}
                   </span>
                 </span>
