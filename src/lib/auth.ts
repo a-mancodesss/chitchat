@@ -1,5 +1,4 @@
 import { NextAuthOptions,Session } from "next-auth";
-import { JWT } from "next-auth/jwt";
 import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
 import { db } from "./db";
 import GoogleProvider from "next-auth/providers/google";

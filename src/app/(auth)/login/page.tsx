@@ -5,7 +5,7 @@ import Link from "next/link"
 import {useState } from "react"
 import toast from "react-hot-toast"
 
-const page = () => {
+const LoginPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   async function loginWithGoogle() {
@@ -14,6 +14,7 @@ const page = () => {
     try {
       await signIn('google')
     } catch (error) {
+      console.log(error)
       // display error message to user
       toast.error('Something went wrong with your login!!!')
     } finally {
@@ -75,4 +76,4 @@ const page = () => {
   )
 }
 
-export default page
+export default LoginPage

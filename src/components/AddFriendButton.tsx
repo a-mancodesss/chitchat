@@ -2,17 +2,16 @@
 
 import { addFriendValidator } from '@/lib/validators/add-friend'
 import axios, { AxiosError } from 'axios'
-import { FC, useState } from 'react'
+import {  useState } from 'react'
 import Button from './Button'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-interface AddFriendButtonProps {}
 
 type FormData = z.infer<typeof addFriendValidator>
 
-const AddFriendButton: FC<AddFriendButtonProps> = ({}) => {
+const AddFriendButton= () => {
   const [showSuccessState, setShowSuccessState] = useState<boolean>(false)
 
   const {
