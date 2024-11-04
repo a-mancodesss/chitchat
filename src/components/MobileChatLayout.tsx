@@ -1,6 +1,6 @@
 'use client'
 
-import { Transition, Dialog } from '@headlessui/react'
+import { Transition, Dialog, DialogPanel, DialogTitle, TransitionChild } from '@headlessui/react'
 import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -43,14 +43,14 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
           Menu <Menu className='h-6 w-6' />
         </Button>
       </div>
-      <Transition.Root show={open} as={Fragment}>
+      <Transition show={open} as={Fragment}>
         <Dialog as='div' className='relative z-10' onClose={setOpen}>
           <div className='fixed inset-0' />
 
           <div className='fixed inset-0 overflow-hidden'>
             <div className='absolute inset-0 overflow-hidden'>
               <div className='pointer-events-none fixed inset-y-0 left-0 flex max-w-full pr-10'>
-                <Transition.Child
+                <TransitionChild
                   as={Fragment}
                   enter='transform transition ease-in-out duration-500 sm:duration-700'
                   enterFrom='-translate-x-full'
@@ -58,13 +58,13 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                   leave='transform transition ease-in-out duration-500 sm:duration-700'
                   leaveFrom='translate-x-0'
                   leaveTo='-translate-x-full'>
-                  <Dialog.Panel className='pointer-events-auto w-screen max-w-md'>
+                  <DialogPanel className='pointer-events-auto w-screen max-w-md'>
                     <div className='flex h-full flex-col overflow-hidden bg-white py-6 shadow-xl'>
                       <div className='px-4 sm:px-6'>
                         <div className='flex items-start justify-between'>
-                          <Dialog.Title className='text-base font-semibold leading-6 text-gray-900'>
+                          <DialogTitle className='text-base font-semibold leading-6 text-gray-900'>
                             Dashboard
-                          </Dialog.Title>
+                          </DialogTitle>
                           <div className='ml-3 flex h-7 items-center'>
                             <button
                               type='button'
@@ -163,13 +163,13 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                         {/* content end */}
                       </div>
                     </div>
-                  </Dialog.Panel>
-                </Transition.Child>
+                  </DialogPanel>
+                </TransitionChild>
               </div>
             </div>
           </div>
         </Dialog>
-      </Transition.Root>
+      </Transition>
     </div>
   )
 }
