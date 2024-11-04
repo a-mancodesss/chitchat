@@ -12,7 +12,7 @@ import { getFriendsByUserId} from '@/helper/get-friends-by-user-id'
 // import SidebarChatList from '@/components/SidebarChartList'
 // import MobileChatLayout from '@/components/MobileChatLayout'
 import { SidebarOption } from '@/types/typings'
-import { User } from '@/types/db'
+import { User} from "@/types/db"
 
 interface LayoutProps {
   children: ReactNode
@@ -39,7 +39,7 @@ const Layout = async ({ children }: LayoutProps) => {
   if (!session) notFound()
 
   const friends = await getFriendsByUserId(session.user.id)
-  console.log('friends', friends)
+  // console.log('friends', friends)
 
   const unseenRequestCount = (
     (await fetchRedis(

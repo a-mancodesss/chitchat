@@ -6,6 +6,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import { FC, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import UnseenChatToast from './UnseenChatToast'
+import { User } from '@/types/db'
+import { Message } from '@/lib/validators/message'
 
 interface SidebarChatListProps {
   friends: User[]
