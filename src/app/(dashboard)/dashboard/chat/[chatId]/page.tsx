@@ -29,11 +29,6 @@ export async function generateMetadata({
   return { title: `FriendZone | ${chatPartner.name} chat` }
 }
 
-interface PageProps {
-  params: {
-    chatId: string
-  }
-}
 
 async function getChatMessages(chatId: string) {
   try {
@@ -56,8 +51,7 @@ async function getChatMessages(chatId: string) {
     notFound()
   }
 }
-
-const page = async ({ params }: PageProps) => {
+export default async function Page ({ params }: {params: {chatId: string}})  {
   const { chatId } = params
   const session = await getServerSession(authOptions)
   if (!session) notFound()
@@ -120,4 +114,3 @@ const page = async ({ params }: PageProps) => {
   )
 }
 
-export default page
