@@ -4,6 +4,7 @@ import { db } from '@/lib/db'
 import { pusherServer } from '@/lib/pusher'
 import { toPusherKey } from '@/lib/utils'
 import { Message, messageValidator } from '@/lib/validators/message'
+import { User } from '@/types/db'
 import { nanoid } from 'nanoid'
 import { getServerSession } from 'next-auth'
 

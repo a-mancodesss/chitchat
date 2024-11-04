@@ -8,11 +8,11 @@ import { notFound } from 'next/navigation'
 import { FC, ReactNode } from 'react'
 import FriendRequestSidebarOptions from '@/components/FriendRequestSidebarOptions'
 import { fetchRedis } from '@/helper/redis'
-import { getFriendsByUserId} from '@/helper/get-friends-by-user-id'
-// import SidebarChatList from '@/components/SidebarChartList'
-// import MobileChatLayout from '@/components/MobileChatLayout'
+import { getFriendsByUserId } from '@/helper/get-friends-by-user-id'
+import SidebarChatList from '@/components/SidebarChartList'
+import MobileChatLayout from '@/components/MobileChatLayout'
 import { SidebarOption } from '@/types/typings'
-import { User} from "@/types/db"
+import { User } from '@/types/db'
 
 interface LayoutProps {
   children: ReactNode
@@ -35,11 +35,10 @@ const sidebarOptions: SidebarOption[] = [
 
 const Layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions)
-  // console.log(session)
   if (!session) notFound()
 
   const friends = await getFriendsByUserId(session.user.id)
-  // console.log('friends', friends)
+  console.log('friends', friends)
 
   const unseenRequestCount = (
     (await fetchRedis(
@@ -51,15 +50,15 @@ const Layout = async ({ children }: LayoutProps) => {
   return (
     <div className='w-full flex h-screen'>
       <div className='md:hidden'>
-        {/* <MobileChatLayout
+        <MobileChatLayout
           friends={friends}
           session={session}
           sidebarOptions={sidebarOptions}
           unseenRequestCount={unseenRequestCount}
-        /> */}
+        />
       </div>
 
-      <div className='hidden md:flex h-full w-full max-w-sm grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-lime-50 px-6'>
+      <div className='hidden md:flex h-full w-full max-w-sm grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6'>
         <Link href='/dashboard' className='flex h-16 shrink-0 items-center'>
           <Icons.Logo className='h-8 w-auto text-lime-600' />
         </Link>
@@ -73,7 +72,7 @@ const Layout = async ({ children }: LayoutProps) => {
         <nav className='flex flex-1 flex-col'>
           <ul role='list' className='flex flex-1 flex-col gap-y-7'>
             <li>
-              {/* <SidebarChatList sessionId={session.user.id} friends={friends} /> */}
+              <SidebarChatList sessionId={session.user.id} friends={friends} />
             </li>
             <li>
               <div className='text-xs font-semibold leading-6 text-gray-400'>
@@ -109,12 +108,12 @@ const Layout = async ({ children }: LayoutProps) => {
 
             <li className='-mx-6 mt-auto flex items-center'>
               <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900'>
-                <div className='relative h-8 w-8 bg-transparent'>
+                <div className='relative h-8 w-8 bg-gray-50'>
                   <Image
                     fill
                     referrerPolicy='no-referrer'
                     className='rounded-full'
-                    src={session.user.image||""}
+                    src={session.user.image || ''}
                     alt='Your profile picture'
                   />
                 </div>
