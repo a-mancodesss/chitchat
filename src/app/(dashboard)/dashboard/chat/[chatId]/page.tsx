@@ -2,18 +2,16 @@ import ChatInput from '@/components/ChatInput'
 import Messages from '@/components/Messages'
 import { fetchRedis } from '@/helper/redis'
 import { authOptions } from '@/lib/auth'
-import { Message, messageArrayValidator } from '@/lib/validators/message'
-import { User } from '@/types/db'
+import { messageArrayValidator } from '@/lib/validators/message'
+import { Message, User } from '@/types/db'
 import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+type Params = Promise<{ chatId: string }>
 
 // The following generateMetadata functiion was written after the video and is purely optional
-export async function generateMetadata({
-  params,
-}: {
-  params: { chatId: string }
-}) {
+export async function generateMetadata(props:{params:Params}) {
+  const params = await props.params
   const session = await getServerSession(authOptions)
   if (!session) notFound()
   const [userId1, userId2] = params.chatId.split('--')
@@ -28,8 +26,6 @@ export async function generateMetadata({
 
   return { title: `FriendZone | ${chatPartner.name} chat` }
 }
-
-
 async function getChatMessages(chatId: string) {
   try {
     const results: string[] = await fetchRedis(
@@ -47,12 +43,15 @@ async function getChatMessages(chatId: string) {
 
     return messages
   } catch (error) {
-    console.log('error fetching messages', error)
+    console.error(error)
     notFound()
   }
 }
-export default async function Page ({ params }: {params: {chatId: string}})  {
-  const { chatId } = params
+
+
+export default async function Page(props:{params:Params}) {
+  const params = await props.params
+  const chatId = params.chatId
   const session = await getServerSession(authOptions)
   if (!session) notFound()
 
