@@ -1,1 +1,2 @@
-## ChitChat - Real time chatapp using Redis, websocket.
+## ChitChat - Real time chatapp using Next, redis, upstash.
+![alt text](image.png)
