@@ -68,8 +68,6 @@ const LoginPage = () => {
         )}
         Google
       </Button>
-      <Link className="right py-2 flex justify-center bg-slate-900 rounded-md text-white font-semibold mt-2 px-8" href='/dashboard'>Dashboard</Link>
-      <Link className="right py-2 flex justify-center bg-slate-900 rounded-md text-white font-semibold mt-2 px-8" href='/'>HomePage</Link>
     </div>
   </div>
   </>
