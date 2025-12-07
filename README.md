@@ -1,31 +1,27 @@
-# ChitChat 💬
+# ChitChat
 
-## Real-time Chat Application
+A modern, real-time chat application built with Next.js 14, Redis, and Pusher.
 
-ChitChat is a real-time chat application built with Next.js, Redis, and Upstash.
+[![Live Demo](https://img.shields.io/badge/demo-live-emerald?style=for-the-badge)](https://chitchat-aman.vercel.app/)
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://chitchat-aman.vercel.app/)
+<img width="1404" height="996" alt="image" src="https://github.com/user-attachments/assets/16f18223-fceb-4215-a27d-ef11b5465bdd" />
 
-![ChitChat](image.png)
 
 ## Features
 
-- Real-time messaging
-- User authentication
-- Responsive design
+- **Real-time Messaging** — Instant message delivery powered by Pusher
+- **Google Authentication** — Secure sign-in with NextAuth.js
+- **Friend System** — Send, accept, or deny friend requests
+- **Responsive Design** — Works seamlessly on desktop and mobile
+- **Modern UI** — Clean, sleek interface with emerald/white theme
 
-## Technologies
+## Tech Stack
 
-- Next.js
-- Redis
-- Upstash
-
-## Getting Started
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Run the development server: `npm run dev`
-
-## License
-
-This project is licensed under the MIT License.
+| Category | Technology |
+|----------|------------|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Database | Redis (Upstash) |
+| Real-time | Pusher |
+| Auth | NextAuth.js |
+| Styling | Tailwind CSS |
