@@ -19,14 +19,17 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
   const [input, setInput] = useState<string>('')
 
   const sendMessage = async () => {
-    if(!input) return
+    if (!input.trim()) return
+    
+    const messageText = input
+    setInput('') // Optimistic: clear immediately
     setIsLoading(true)
 
     try {
-      await axios.post('/api/message/send', { text: input, chatId })
-      setInput('')
+      await axios.post('/api/message/send', { text: messageText, chatId })
       textareaRef.current?.focus()
     } catch {
+      setInput(messageText) // Rollback on error
       toast.error('Something went wrong. Please try again later.')
     } finally {
       setIsLoading(false)
