@@ -68,25 +68,40 @@ const FriendRequests: FC<FriendRequestsProps> = ({
   return (
     <>
       {friendRequests.length === 0 ? (
-        <p className='text-sm text-zinc-500'>Nothing to show here...</p>
+        <div className="flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-sm border border-gray-100 text-center">
+          <div className="bg-gray-50 p-4 rounded-full mb-4">
+             <UserPlus className="h-8 w-8 text-gray-400" />
+          </div>
+          <h3 className="text-lg font-medium text-gray-900">No pending requests</h3>
+          <p className="text-sm text-gray-500 mt-1">When people send you a friend request, it will appear here.</p>
+        </div>
       ) : (
         friendRequests.map((request) => (
-          <div key={request.senderId} className='flex gap-4 items-center'>
-            <UserPlus className='text-black' />
-            <p className='font-medium text-lg'>{request.senderEmail}</p>
-            <button
-              onClick={() => acceptFriend(request.senderId)}
-              aria-label='accept friend'
-              className='w-8 h-8 bg-lime-600 hover:bg-lime-700 grid place-items-center rounded-full transition hover:shadow-md'>
-              <Check className='font-semibold text-white w-3/4 h-3/4' />
-            </button>
+          <div key={request.senderId} className='flex gap-4 items-center bg-white p-4 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all'>
+            <div className="bg-emerald-50 p-3 rounded-xl">
+               <UserPlus className='text-emerald-600 h-6 w-6' />
+            </div>
+            
+            <div className="flex-1">
+               <p className='font-semibold text-lg text-gray-900'>{request.senderEmail}</p>
+               <p className="text-xs text-gray-500">wants to be your friend</p>
+            </div>
 
-            <button
-              onClick={() => denyFriend(request.senderId)}
-              aria-label='deny friend'
-              className='w-8 h-8 bg-red-600 hover:bg-red-700 grid place-items-center rounded-full transition hover:shadow-md'>
-              <X className='font-semibold text-white w-3/4 h-3/4' />
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => acceptFriend(request.senderId)}
+                aria-label='accept friend'
+                className='w-10 h-10 bg-emerald-600 hover:bg-emerald-700 grid place-items-center rounded-xl transition hover:shadow-md shadow-sm'>
+                <Check className='font-semibold text-white w-5 h-5' />
+              </button>
+
+              <button
+                onClick={() => denyFriend(request.senderId)}
+                aria-label='deny friend'
+                className='w-10 h-10 bg-gray-100 hover:bg-red-100 hover:text-red-600 text-gray-600 grid place-items-center rounded-xl transition hover:shadow-md shadow-sm'>
+                <X className='font-semibold w-5 h-5' />
+              </button>
+            </div>
           </div>
         ))
       )}

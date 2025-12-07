@@ -4,11 +4,11 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const loading = () => {
   return (
-    <div className='w-full flex flex-col gap-3'>
-      <Skeleton className='mb-4' height={60} width={500} />
-      <Skeleton height={50} width={350} />
-      <Skeleton height={50} width={350} />
-      <Skeleton height={50} width={350} />
+    <div className='w-full flex flex-col gap-3 pt-8'>
+      <Skeleton className='mb-8' height={60} width={300} />
+      <div className="flex flex-col gap-4">
+        <Skeleton height={80} borderRadius={16} count={3} />
+      </div>
     </div>
   )
 }

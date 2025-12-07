@@ -7,6 +7,7 @@ import Button from './Button'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Mail } from 'lucide-react'
 
 
 type FormData = z.infer<typeof addFriendValidator>
@@ -52,7 +53,7 @@ const AddFriendButton= () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='max-w-sm'>
+    <form onSubmit={handleSubmit(onSubmit)} className='max-w-sm w-full'>
       <label
         htmlFor='email'
         className='block text-sm font-medium leading-6 text-gray-900'>
@@ -60,17 +61,25 @@ const AddFriendButton= () => {
       </label>
 
       <div className='mt-2 flex gap-4'>
-        <input
-          {...register('email')}
-          type='text'
-          className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-          placeholder='you@example.com'
-        />
-        <Button>Add</Button>
+        <div className="relative flex-1">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Mail className="h-5 w-5 text-gray-400" />
+          </div>
+          <input
+            {...register('email')}
+            type='text'
+            className='block w-full rounded-xl border-0 py-2 pl-10 pr-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6 transition-all'
+            placeholder='you@example.com'
+          />
+        </div>
+        <Button className='rounded-xl bg-emerald-600 hover:bg-emerald-700 shadow-sm'>Add</Button>
       </div>
-      <p className='mt-1 text-sm text-red-600'>{errors.email?.message}</p>
+      <p className='mt-2 text-sm text-red-600'>{errors.email?.message}</p>
       {showSuccessState ? (
-        <p className='mt-1 text-sm text-green-600'>Friend request sent!</p>
+        <p className='mt-2 text-sm text-emerald-600 font-medium flex items-center gap-1'>
+          <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block"/>
+          Friend request sent!
+        </p>
       ) : null}
     </form>
   )
