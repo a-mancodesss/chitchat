@@ -32,20 +32,20 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
   }, [pathname])
 
   return (
-    <div className='fixed bg-zinc-50 border-b border-zinc-200 top-0 inset-x-0 py-2 px-4'>
+    <div className='fixed bg-white border-b border-gray-100 top-0 inset-x-0 py-2 px-4 shadow-sm z-50'>
       <div className='w-full flex justify-between items-center'>
         <Link
           href='/dashboard'
           className={buttonVariants({ variant: 'ghost' })}>
-          <Icons.Logo className='h-6 w-auto text-lime-600' />
+          <Icons.Logo className='h-6 w-auto text-emerald-600' />
         </Link>
-        <Button onClick={() => setOpen(true)} className='gap-4'>
+        <Button onClick={() => setOpen(true)} className='gap-4 bg-emerald-600 hover:bg-emerald-700 text-white border-none shadow-sm rounded-full active:ring-0'>
           Menu <Menu className='h-6 w-6' />
         </Button>
       </div>
       <Transition show={open} as={Fragment}>
-        <Dialog as='div' className='relative z-10' onClose={setOpen}>
-          <div className='fixed inset-0' />
+        <Dialog as='div' className='relative z-50' onClose={setOpen}>
+          <div className='fixed inset-0 bg-black/20 backdrop-blur-sm' />
 
           <div className='fixed inset-0 overflow-hidden'>
             <div className='absolute inset-0 overflow-hidden'>
@@ -68,7 +68,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                           <div className='ml-3 flex h-7 items-center'>
                             <button
                               type='button'
-                              className='rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2'
+                              className='rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2'
                               onClick={() => setOpen(false)}>
                               <span className='sr-only'>Close panel</span>
                               <X className='h-6 w-6' aria-hidden='true' />
@@ -80,7 +80,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                         {/* Content */}
 
                         {friends.length > 0 ? (
-                          <div className='text-xs font-semibold leading-6 text-gray-400'>
+                          <div className='text-xs font-semibold leading-6 text-gray-400 tracking-wider uppercase'>
                             Your chats
                           </div>
                         ) : null}
@@ -97,7 +97,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                             </li>
 
                             <li>
-                              <div className='text-xs font-semibold leading-6 text-gray-400'>
+                              <div className='text-xs font-semibold leading-6 text-gray-400 tracking-wider uppercase'>
                                 Overview
                               </div>
                               <ul role='list' className='-mx-2 mt-2 space-y-1'>
@@ -107,8 +107,8 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                                     <li key={option.name}>
                                       <Link
                                         href={option.href}
-                                        className='text-gray-700 hover:text-lime-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'>
-                                        <span className='text-gray-400 border-gray-200 group-hover:border-lime-600 group-hover:text-lime-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white'>
+                                        className='text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 group flex gap-x-3 rounded-xl p-2 text-sm leading-6 font-semibold transition-all duration-200'>
+                                        <span className='text-gray-400 border-gray-200 group-hover:border-emerald-600 group-hover:text-emerald-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white transition-colors'>
                                           <Icon className='h-4 w-4' />
                                         </span>
                                         <span className='truncate'>
@@ -131,12 +131,12 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                             </li>
 
                             <li className='-ml-6 mt-auto flex items-center'>
-                              <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900'>
+                              <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50 transition-colors'>
                                 <div className='relative h-8 w-8 bg-gray-50'>
                                   <Image
                                     fill
                                     referrerPolicy='no-referrer'
-                                    className='rounded-full'
+                                    className='rounded-full ring-2 ring-emerald-100'
                                     src={session.user.image || ''}
                                     alt='Your profile picture'
                                   />
@@ -155,7 +155,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                                 </div>
                               </div>
 
-                              <SignOutButton className='h-full aspect-square' />
+                              <SignOutButton className='h-full aspect-square hover:bg-red-50 hover:text-red-600 transition-colors' />
                             </li>
                           </ul>
                         </nav>

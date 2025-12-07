@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast'
 import TextareaAutosize from 'react-textarea-autosize'
 import Button from './Button'
 import { User } from '@/types/db'
+import { Send } from 'lucide-react'
 
 interface ChatInputProps {
   chatPartner: User
@@ -33,8 +34,8 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
   }
 
   return (
-    <div className='border-t border-gray-200  mb-0 w-full'>
-      <div className='relative flex-1 overflow-hidden  shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-lime-600 rounded-[.625rem] rounded-t-none sm:rounded-xl py-1'>
+    <div className='border-t border-gray-100 px-4 pt-4 mb-2 sm:mb-0'>
+      <div className='relative flex-1 overflow-hidden rounded-2xl shadow-sm ring-1 ring-inset ring-gray-200 focus-within:ring-2 focus-within:ring-emerald-500 bg-gray-50 transition-all duration-200'>
         <TextareaAutosize
           ref={textareaRef}
           onKeyDown={(e) => {
@@ -47,7 +48,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={`Message ${chatPartner.name}`}
-          className='block w-full resize-none border-0 bg-transparent text-gray-900 placeholder:text-gray-400 focus:outline-none sm:py-1.5 sm:text-sm sm:leading-6 px-2 '
+          className='block w-full resize-none border-0 bg-transparent text-gray-900 placeholder:text-gray-400 focus:outline-none py-3 px-4 pr-14 sm:text-sm sm:leading-6'
         />
 
         <div
@@ -59,12 +60,15 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
           </div>
         </div>
 
-        <div className='absolute right-0 bottom-0 flex justify-between py-2 pl-3 pr-2'>
-          <div className='flex-shrin-0'>
-            <Button className='rounded-xl' isLoading={isLoading} onClick={sendMessage} type='submit'>
-              Post
-            </Button>
-          </div>
+        <div className='absolute right-2 bottom-2'>
+          <Button 
+            className='rounded-xl bg-emerald-600 hover:bg-emerald-700 h-10 w-10 p-0 flex items-center justify-center transition-colors shadow-sm' 
+            isLoading={isLoading} 
+            onClick={sendMessage} 
+            type='submit'
+          >
+            {!isLoading && <Send className='h-5 w-5 text-white ml-0.5' />}
+          </Button>
         </div>
       </div>
     </div>

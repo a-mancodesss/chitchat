@@ -34,17 +34,17 @@ const page = async ({}) => {
   )
 
   return (
-    <div className='container py-12'>
-      <h1 className='font-bold text-5xl mb-8'>Recent chats</h1>
+    <div className='container  py-12'>
+      <h1 className='font-bold text-5xl mb-8 tracking-tight text-gray-900'>Recent chats</h1>
       {friendsWithLastMessage.length === 0 ? (
         <p className='text-sm text-zinc-500'>Nothing to show here...</p>
       ) : (
         friendsWithLastMessage.map((friend) => (
           <div
             key={friend.id}
-            className='relative bg-zinc-50 border border-zinc-200 p-3 rounded-xl'>
+            className='relative bg-white border border-gray-100 p-4 rounded-2xl shadow-sm hover:shadow-lg hover:border-emerald-100 transition-all duration-200 mb-3 group'>
             <div className='absolute right-4 inset-y-0 flex items-center'>
-              <ChevronRight className='h-7 w-7 text-zinc-400' />
+              <ChevronRight className='h-7 w-7 text-gray-300 group-hover:text-emerald-500 transition-colors' />
             </div>
 
             <Link
@@ -52,12 +52,12 @@ const page = async ({}) => {
                 session.user.id,
                 friend.id
               )}`}
-              className='relative sm:flex'>
-              <div className='mb-4 flex-shrink-0 sm:mb-0 sm:mr-4'>
-                <div className='relative h-6 w-6'>
+              className='relative sm:flex items-center gap-4'>
+              <div className='flex-shrink-0'>
+                <div className='relative h-12 w-12'>
                   <Image
                     referrerPolicy='no-referrer'
-                    className='rounded-full'
+                    className='rounded-full ring-2 ring-white shadow-sm'
                     alt={`${friend.name} profile picture`}
                     src={friend.image}
                     fill
@@ -65,10 +65,10 @@ const page = async ({}) => {
                 </div>
               </div>
 
-              <div>
-                <h4 className='text-lg font-semibold'>{friend.name}</h4>
-                <p className='mt-1 max-w-md'>
-                  <span className='text-zinc-400'>
+              <div className="flex-1 min-w-0">
+                <h4 className='text-lg font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors'>{friend.name}</h4>
+                <p className='mt-1 max-w-md truncate text-sm text-gray-500'>
+                  <span className='text-gray-400 font-medium'>
                     {friend.lastMessage.senderId === session.user.id
                       ? 'You: '
                       : ''}

@@ -38,7 +38,6 @@ const Layout = async ({ children }: LayoutProps) => {
   if (!session) notFound()
 
   const friends = await getFriendsByUserId(session.user.id)
-  console.log('friends', friends)
 
   const unseenRequestCount = (
     (await fetchRedis(
@@ -48,7 +47,7 @@ const Layout = async ({ children }: LayoutProps) => {
   ).length
 
   return (
-    <div className='w-full flex h-screen'>
+    <div className='w-full flex h-screen bg-white'>
       <div className='md:hidden'>
         <MobileChatLayout
           friends={friends}
@@ -58,13 +57,13 @@ const Layout = async ({ children }: LayoutProps) => {
         />
       </div>
 
-      <div className='hidden md:flex h-full w-full max-w-sm grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6'>
-        <Link href='/dashboard' className='flex h-16 shrink-0 items-center'>
-          <Icons.Logo className='h-8 w-auto text-lime-600' />
+      <div className='hidden md:flex h-full w-full max-w-sm grow flex-col gap-y-5 overflow-y-auto border-r border-gray-100 bg-white px-6 shadow-[4px_0_24px_-12px_rgba(0,0,0,0.1)] z-10'>
+        <Link href='/dashboard' className='flex h-16 shrink-0 items-center gap-2'>
+          <Icons.Logo className='h-8 w-auto text-emerald-600' />
         </Link>
 
         {friends.length > 0 ? (
-          <div className='text-xs font-semibold leading-6 text-gray-400'>
+          <div className='text-xs font-semibold leading-6 text-gray-400 tracking-wider uppercase'>
             Your chats
           </div>
         ) : null}
@@ -75,7 +74,7 @@ const Layout = async ({ children }: LayoutProps) => {
               <SidebarChatList sessionId={session.user.id} friends={friends} />
             </li>
             <li>
-              <div className='text-xs font-semibold leading-6 text-gray-400'>
+              <div className='text-xs font-semibold leading-6 text-gray-400 tracking-wider uppercase'>
                 Overview
               </div>
 
@@ -86,8 +85,8 @@ const Layout = async ({ children }: LayoutProps) => {
                     <li key={option.id}>
                       <Link
                         href={option.href}
-                        className='text-gray-700 hover:text-lime-600 hover:bg-gray-50 group flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold'>
-                        <span className='text-gray-400 border-gray-200 group-hover:border-lime-600 group-hover:text-lime-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white'>
+                        className='text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 group flex gap-3 rounded-xl p-2 text-sm leading-6 font-semibold transition-all duration-200'>
+                        <span className='text-gray-400 border-gray-200 group-hover:border-emerald-600 group-hover:text-emerald-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white transition-colors duration-200'>
                           <Icon className='h-4 w-4' />
                         </span>
 
@@ -107,12 +106,12 @@ const Layout = async ({ children }: LayoutProps) => {
             </li>
 
             <li className='-mx-6 mt-auto flex items-center'>
-              <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900'>
+              <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50 transition-colors'>
                 <div className='relative h-8 w-8 bg-gray-50'>
                   <Image
                     fill
                     referrerPolicy='no-referrer'
-                    className='rounded-full'
+                    className='rounded-full ring-2 ring-emerald-100'
                     src={session.user.image || ''}
                     alt='Your profile picture'
                   />
@@ -127,13 +126,13 @@ const Layout = async ({ children }: LayoutProps) => {
                 </div>
               </div>
 
-              <SignOutButton className='h-full aspect-square' />
+              <SignOutButton className='h-full aspect-square hover:bg-red-50 hover:text-red-600 transition-colors' />
             </li>
           </ul>
         </nav>
       </div>
 
-      <aside className='max-h-screen container py-16 md:py-12 w-full'>
+      <aside className='max-h-screen sm:container py-16 md:py-12 w-full bg-gray-50/50'>
         {children}
       </aside>
     </div>

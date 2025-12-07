@@ -74,29 +74,29 @@ export default async function Page(props:{params:Params}) {
   const initialMessages = await getChatMessages(chatId)
 
   return (
-    <div className='flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]'>
-      <div className='flex sm:items-center justify-between py-3 border-b-2 border-gray-200'>
-        <div className='relative flex items-center space-x-4'>
+    <div className='flex-1 bg-red-500 justify-between flex flex-col  max-h-[calc(100vh-6rem)] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden'>
+      <div className='flex sm:items-center justify-between py-4 px-6 border-b border-gray-100 bg-white/50 backdrop-blur-sm sticky top-0 z-10'>
+        <div className='relative flex items-center gap-4'>
           <div className='relative'>
-            <div className='relative w-8 sm:w-12 h-8 sm:h-12'>
+            <div className='relative w-10 sm:w-12 h-10 sm:h-12'>
               <Image
                 fill
                 referrerPolicy='no-referrer'
                 src={chatPartner.image}
                 alt={`${chatPartner.name} profile picture`}
-                className='rounded-full'
+                className='rounded-full ring-2 ring-emerald-50 object-cover'
               />
             </div>
           </div>
 
           <div className='flex flex-col leading-tight'>
             <div className='text-xl flex items-center'>
-              <span className='text-gray-700 mr-3 font-semibold'>
+              <span className='text-gray-900 font-bold'>
                 {chatPartner.name}
               </span>
             </div>
 
-            <span className='text-sm text-gray-600'>{chatPartner.email}</span>
+            <span className='text-sm text-gray-500 font-medium'>{chatPartner.email}</span>
           </div>
         </div>
       </div>
@@ -112,4 +112,3 @@ export default async function Page(props:{params:Params}) {
     </div>
   )
 }
-

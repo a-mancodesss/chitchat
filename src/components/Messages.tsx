@@ -53,7 +53,7 @@ const Messages: FC<MessagesProps> = ({
   return (
     <div
       id='messages'
-      className='flex h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch'>
+      className='flex h-full flex-1 flex-col-reverse gap-4 p-4 overflow-y-auto scrollbar-thumb-emerald-200 scrollbar-thumb-rounded scrollbar-track-transparent scrollbar-w-2 scrolling-touch'>
       <div ref={scrollDownRef} />
 
       {messages.map((message, index) => {
@@ -72,30 +72,33 @@ const Messages: FC<MessagesProps> = ({
               })}>
               <div
                 className={cn(
-                  'flex flex-col space-y-2 text-base max-w-xs mx-2',
+                  'flex flex-col space-y-2 text-base max-w-[75%] md:max-w-[80%] mx-2',
                   {
                     'order-1 items-end': isCurrentUser,
                     'order-2 items-start': !isCurrentUser,
                   }
                 )}>
                 <span
-                  className={cn('px-4 py-2 rounded-xl inline-block', {
-                    'bg-lime-600 text-white': isCurrentUser,
-                    'bg-gray-200 text-gray-900': !isCurrentUser,
+                  className={cn('px-5 py-2.5 rounded-3xl inline-block shadow-sm', {
+                    'bg-emerald-600 text-white': isCurrentUser,
+                    'bg-gray-100 text-gray-900': !isCurrentUser,
                     'rounded-br-none':
                       !hasNextMessageFromSameUser && isCurrentUser,
                     'rounded-bl-none':
                       !hasNextMessageFromSameUser && !isCurrentUser,
                   })}>
                   {message.text}{' '}
-                  <span className='ml-2 text-xs '>
+                  <span className={cn('ml-2 text-xs opacity-75', {
+                    'text-emerald-100': isCurrentUser,
+                    'text-gray-500': !isCurrentUser
+                  })}>
                     {formatTimestamp(message.timestamp)}
                   </span>
                 </span>
               </div>
 
               <div
-                className={cn('relative w-6 h-6', {
+                className={cn('relative w-9 h-9 flex-shrink-0', {
                   'order-2': isCurrentUser,
                   'order-1': !isCurrentUser,
                   invisible: hasNextMessageFromSameUser,
@@ -107,7 +110,7 @@ const Messages: FC<MessagesProps> = ({
                   }
                   alt='Profile picture'
                   referrerPolicy='no-referrer'
-                  className='rounded-full'
+                  className='rounded-full ring-2 ring-white shadow-sm object-cover'
                 />
               </div>
             </div>

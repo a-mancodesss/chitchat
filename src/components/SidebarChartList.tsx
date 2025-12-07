@@ -30,7 +30,6 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`))
 
     const newFriendHandler = (newFriend: User) => {
-      console.log("received new user", newFriend)
       setActiveChats((prev) => [...prev, newFriend])
     }
 
@@ -90,10 +89,10 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
                 sessionId,
                 friend.id
               )}`}
-              className='text-gray-700 hover:text-lime-600 hover:bg-gray-50 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'>
+              className='text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 group flex items-center gap-x-3 rounded-xl p-2 text-sm leading-6 font-semibold transition-all duration-200'>
               {friend.name}
               {unseenMessagesCount > 0 ? (
-                <div className='bg-lime-600 font-medium text-xs text-white w-4 h-4 rounded-full flex justify-center items-center'>
+                <div className='bg-emerald-600 font-medium text-xs text-white w-4 h-4 rounded-full flex justify-center items-center shadow-sm'>
                   {unseenMessagesCount}
                 </div>
               ) : null}
