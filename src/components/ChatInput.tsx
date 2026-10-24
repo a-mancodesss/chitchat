@@ -36,7 +36,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, onSend }) => {
   }
 
   return (
-    <div className='border-t border-[#edf1ed] px-3 pb-3 pt-3 sm:px-5 sm:pb-4 sm:pt-4'>
+    <div className='shrink-0 border-t border-[#edf1ed] px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:px-5 sm:pt-4 md:pb-4'>
       <div className='relative flex-1 overflow-hidden rounded-full bg-[#f7faf7] ring-1 ring-inset ring-[#e7eee8] transition-all focus-within:bg-white focus-within:ring-2 focus-within:ring-[#0e7655]'>
         <TextareaAutosize
           ref={textareaRef}

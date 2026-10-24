@@ -29,7 +29,7 @@ const Messages: FC<MessagesProps> = ({
   return (
     <div
       id='messages'
-      className='flex h-full flex-1 flex-col-reverse gap-3 overflow-y-auto bg-white px-3 py-5 scrollbar-thumb-emerald-200 scrollbar-thumb-rounded scrollbar-track-transparent scrollbar-w-2 scrolling-touch sm:gap-4 sm:px-5 sm:py-6'>
+      className='flex min-h-0 flex-1 flex-col-reverse gap-3 overflow-y-auto bg-white px-3 py-5 scrollbar-thumb-emerald-200 scrollbar-thumb-rounded scrollbar-track-transparent scrollbar-w-2 scrolling-touch sm:gap-4 sm:px-5 sm:py-6'>
       <div ref={scrollDownRef} />
 
       {messages.map((message, index) => {

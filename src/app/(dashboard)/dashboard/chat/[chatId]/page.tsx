@@ -73,8 +73,8 @@ export default async function Page(props:{params:Params}) {
   const initialMessages = await getChatMessages(chatId)
 
   return (
-    <div className='flex h-[calc(100dvh-6.5rem)] flex-col justify-between overflow-hidden rounded-[2rem] bg-white md:h-[calc(100dvh-4rem)]'>
-      <div className='sticky top-0 z-10 flex items-center justify-between border-b border-[#edf1ed] bg-white px-4 py-3.5 sm:px-6 sm:py-4'>
+    <div className='fixed inset-x-0 bottom-0 top-[70px] z-0 flex flex-col overflow-hidden bg-white md:static md:h-[calc(100dvh-4rem)]'>
+      <div className='z-10 flex shrink-0 items-center justify-between border-b border-[#edf1ed] bg-white px-4 py-3.5 sm:px-6 sm:py-4'>
         <div className='relative flex min-w-0 items-center gap-3 sm:gap-4'>
           <div className='relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-[#e7f5eb] sm:h-12 sm:w-12'>
               <Image
