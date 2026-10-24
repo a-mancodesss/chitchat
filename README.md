@@ -4,7 +4,8 @@ A modern, real-time chat application built with Next.js 14, Redis, and Pusher.
 
 [![Live Demo](https://img.shields.io/badge/demo-live-emerald?style=for-the-badge)](https://chitchat-aman.vercel.app/)
 
-<img width="1404" height="996" alt="image" src="https://github.com/user-attachments/assets/16f18223-fceb-4215-a27d-ef11b5465bdd" />
+<img width="1449" height="896" alt="image" src="https://github.com/user-attachments/assets/e9358fc9-04c5-44eb-b4ad-29c4f0940d20" />
+
 
 
 ## Features
