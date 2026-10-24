@@ -4,6 +4,7 @@ import { pusherClient } from '@/lib/pusher'
 import { toPusherKey } from '@/lib/utils'
 import { User } from 'lucide-react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { FC, useEffect, useState } from 'react'
 
 interface FriendRequestSidebarOptionsProps {
@@ -15,6 +16,7 @@ const FriendRequestSidebarOptions: FC<FriendRequestSidebarOptionsProps> = ({
   sessionId,
   initialUnseenRequestCount,
 }) => {
+  const pathname = usePathname()
   const [unseenRequestCount, setUnseenRequestCount] = useState<number>(
     initialUnseenRequestCount
   )
@@ -50,16 +52,16 @@ const FriendRequestSidebarOptions: FC<FriendRequestSidebarOptionsProps> = ({
   return (
     <Link
       href='/dashboard/requests'
-      className='text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 group flex items-center gap-x-3 rounded-xl p-2 text-sm leading-6 font-semibold transition-all duration-200'>
-      <div className='text-gray-400 border-gray-200 group-hover:border-emerald-600 group-hover:text-emerald-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white transition-colors'>
+      className={`group flex items-center gap-3 rounded-full px-3 py-2.5 text-sm transition-colors ${pathname === '/dashboard/requests' ? 'bg-[#e7f5eb] font-semibold text-[#0e7655]' : 'font-medium text-[#5f7065] hover:bg-[#edf7f0] hover:text-[#0e7655]'}`}>
+      <span className='grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#f3f8f4] text-[#789082] transition-colors group-hover:bg-white group-hover:text-[#0e7655]'>
         <User className='h-4 w-4' />
-      </div>
-      <p className='truncate'>Friend requests</p>
+      </span>
+      <span className='flex-1 truncate'>Friend requests</span>
 
       {unseenRequestCount > 0 ? (
-        <div className='rounded-full w-5 h-5 text-xs flex justify-center items-center text-white bg-emerald-600 shadow-sm'>
+        <span className='grid h-5 min-w-5 place-items-center rounded-full bg-[#0e7655] px-1 text-[10px] font-semibold text-white'>
           {unseenRequestCount}
-        </div>
+        </span>
       ) : null}
     </Link>
   )

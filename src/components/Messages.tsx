@@ -53,7 +53,7 @@ const Messages: FC<MessagesProps> = ({
   return (
     <div
       id='messages'
-      className='flex h-full flex-1 flex-col-reverse gap-4 p-4 overflow-y-auto scrollbar-thumb-emerald-200 scrollbar-thumb-rounded scrollbar-track-transparent scrollbar-w-2 scrolling-touch'>
+      className='flex h-full flex-1 flex-col-reverse gap-3 overflow-y-auto bg-white px-3 py-5 scrollbar-thumb-emerald-200 scrollbar-thumb-rounded scrollbar-track-transparent scrollbar-w-2 scrolling-touch sm:gap-4 sm:px-5 sm:py-6'>
       <div ref={scrollDownRef} />
 
       {messages.map((message, index) => {
@@ -72,16 +72,16 @@ const Messages: FC<MessagesProps> = ({
               })}>
               <div
                 className={cn(
-                  'flex flex-col space-y-2 text-base max-w-[75%] md:max-w-[80%] mx-2',
+                  'mx-2 flex max-w-[82%] flex-col space-y-2 text-[15px] leading-6 sm:max-w-[76%]',
                   {
                     'order-1 items-end': isCurrentUser,
                     'order-2 items-start': !isCurrentUser,
                   }
                 )}>
                 <span
-                  className={cn('px-5 py-2.5 rounded-3xl inline-block shadow-sm', {
-                    'bg-emerald-600 text-white': isCurrentUser,
-                    'bg-gray-100 text-gray-900': !isCurrentUser,
+                  className={cn('inline-block rounded-[1.4rem] px-4 py-2.5 sm:px-5', {
+                    'bg-[#0e7655] text-white': isCurrentUser,
+                    'bg-[#eff7f0] text-[#26372c]': !isCurrentUser,
                     'rounded-br-none':
                       !hasNextMessageFromSameUser && isCurrentUser,
                     'rounded-bl-none':
@@ -89,8 +89,8 @@ const Messages: FC<MessagesProps> = ({
                   })}>
                   {message.text}{' '}
                   <span className={cn('ml-2 text-xs opacity-75', {
-                    'text-emerald-100': isCurrentUser,
-                    'text-gray-500': !isCurrentUser
+                    'text-[#c8e9d5]': isCurrentUser,
+                    'text-[#8c9a90]': !isCurrentUser
                   })}>
                     {formatTimestamp(message.timestamp)}
                   </span>
@@ -110,7 +110,7 @@ const Messages: FC<MessagesProps> = ({
                   }
                   alt='Profile picture'
                   referrerPolicy='no-referrer'
-                  className='rounded-full ring-2 ring-white shadow-sm object-cover'
+                  className='rounded-full object-cover'
                 />
               </div>
             </div>

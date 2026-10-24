@@ -28,9 +28,11 @@ const page = async () => {
   )
 
   return (
-    <main className='pt-8'>
-      <h1 className='font-bold text-5xl mb-8 tracking-tight text-gray-900'>Friend Requests</h1>
-      <div className='flex flex-col gap-4'>
+    <main className='py-2 md:py-4'>
+      <header className='mb-7 sm:mb-9'>
+        <h1 className='text-3xl font-semibold tracking-[-0.055em] text-[#17271f] sm:text-[2.6rem]'>Friend requests</h1>
+      </header>
+      <div className='flex max-w-3xl flex-col gap-3'>
         <FriendRequests
           incomingFriendRequests={incomingFriendRequests}
           sessionId={session.user.id}

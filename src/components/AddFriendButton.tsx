@@ -53,31 +53,31 @@ const AddFriendButton= () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='max-w-sm w-full'>
+    <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-md'>
       <label
         htmlFor='email'
-        className='block text-sm font-medium leading-6 text-gray-900'>
+        className='block text-sm font-semibold leading-6 text-[#26372c]'>
         Add friend by E-Mail
       </label>
 
-      <div className='mt-2 flex gap-4'>
-        <div className="relative flex-1">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Mail className="h-5 w-5 text-gray-400" />
+      <div className='mt-3 flex flex-col gap-2 sm:flex-row'>
+        <div className='relative min-w-0 flex-1'>
+          <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4'>
+            <Mail className='h-[18px] w-[18px] text-[#91a196]' />
           </div>
           <input
             {...register('email')}
             type='text'
-            className='block w-full rounded-xl border-0 py-2 pl-10 pr-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6 transition-all'
+            className='block h-12 w-full rounded-full border-0 bg-[#f7faf7] py-2 pl-11 pr-4 text-sm text-[#26372c] ring-1 ring-inset ring-[#e7eee8] transition-all placeholder:text-[#a1aca4] focus:bg-white focus:ring-2 focus:ring-inset focus:ring-[#0e7655] sm:leading-6'
             placeholder='you@example.com'
           />
         </div>
-        <Button className='rounded-xl bg-emerald-600 hover:bg-emerald-700 shadow-sm'>Add</Button>
+        <Button className='h-12 rounded-full bg-[#0e7655] px-6 text-white shadow-none hover:bg-[#0b6549]'>Add</Button>
       </div>
-      <p className='mt-2 text-sm text-red-600'>{errors.email?.message}</p>
+      {errors.email?.message ? <p className='mt-2 text-sm text-red-600'>{errors.email.message}</p> : null}
       {showSuccessState ? (
-        <p className='mt-2 text-sm text-emerald-600 font-medium flex items-center gap-1'>
-          <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block"/>
+        <p className='mt-3 flex items-center gap-2 text-sm font-medium text-[#0e7655]'>
+          <span className='inline-block h-2 w-2 rounded-full bg-[#10a96f]' />
           Friend request sent!
         </p>
       ) : null}

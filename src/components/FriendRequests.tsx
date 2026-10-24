@@ -68,38 +68,38 @@ const FriendRequests: FC<FriendRequestsProps> = ({
   return (
     <>
       {friendRequests.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-sm border border-gray-100 text-center">
-          <div className="bg-gray-50 p-4 rounded-full mb-4">
-             <UserPlus className="h-8 w-8 text-gray-400" />
+        <div className='flex min-h-64 flex-col items-center justify-center rounded-[2rem] bg-white p-8 text-center'>
+          <div className='mb-4 rounded-full bg-[#e7f5eb] p-4'>
+             <UserPlus className='h-7 w-7 text-[#0e7655]' />
           </div>
-          <h3 className="text-lg font-medium text-gray-900">No pending requests</h3>
-          <p className="text-sm text-gray-500 mt-1">When people send you a friend request, it will appear here.</p>
+          <h3 className='text-lg font-semibold tracking-tight text-[#26372c]'>No pending requests</h3>
+          <p className='mt-1 max-w-xs text-sm text-[#819087]'>New friend requests will show up here.</p>
         </div>
       ) : (
         friendRequests.map((request) => (
-          <div key={request.senderId} className='flex gap-4 items-center bg-white p-4 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all'>
-            <div className="bg-emerald-50 p-3 rounded-xl">
-               <UserPlus className='text-emerald-600 h-6 w-6' />
+          <div key={request.senderId} className='flex items-center gap-3 rounded-[1.6rem] bg-white p-3 transition-colors sm:gap-4 sm:p-4'>
+            <div className='grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#e7f5eb]'>
+               <UserPlus className='h-5 w-5 text-[#0e7655]' />
             </div>
             
-            <div className="flex-1">
-               <p className='font-semibold text-lg text-gray-900'>{request.senderEmail}</p>
-               <p className="text-xs text-gray-500">wants to be your friend</p>
+            <div className='min-w-0 flex-1'>
+               <p className='truncate text-sm font-semibold text-[#26372c] sm:text-base'>{request.senderEmail}</p>
+               <p className='mt-0.5 text-xs text-[#8a988f]'>wants to be your friend</p>
             </div>
 
-            <div className="flex gap-2">
+            <div className='flex shrink-0 gap-1.5 sm:gap-2'>
               <button
                 onClick={() => acceptFriend(request.senderId)}
                 aria-label='accept friend'
-                className='w-10 h-10 bg-emerald-600 hover:bg-emerald-700 grid place-items-center rounded-xl transition hover:shadow-md shadow-sm'>
-                <Check className='font-semibold text-white w-5 h-5' />
+                className='grid h-10 w-10 place-items-center rounded-full bg-[#0e7655] transition-colors hover:bg-[#0b6549]'>
+                <Check className='h-5 w-5 font-semibold text-white' />
               </button>
 
               <button
                 onClick={() => denyFriend(request.senderId)}
                 aria-label='deny friend'
-                className='w-10 h-10 bg-gray-100 hover:bg-red-100 hover:text-red-600 text-gray-600 grid place-items-center rounded-xl transition hover:shadow-md shadow-sm'>
-                <X className='font-semibold w-5 h-5' />
+                className='grid h-10 w-10 place-items-center rounded-full bg-[#f3f7f3] text-[#76867b] transition-colors hover:bg-[#f7eeee] hover:text-[#a54842]'>
+                <X className='h-5 w-5 font-semibold' />
               </button>
             </div>
           </div>

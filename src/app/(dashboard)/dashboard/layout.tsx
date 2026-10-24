@@ -18,10 +18,9 @@ interface LayoutProps {
   children: ReactNode
 }
 
-// Done after the video and optional: add page metadata
 export const metadata = {
-  title: 'FriendZone | Dashboard',
-  description: 'Your dashboard',
+  title: 'ChitChat',
+  description: 'Your conversations, all in one place.',
 }
 
 const sidebarOptions: SidebarOption[] = [
@@ -47,7 +46,7 @@ const Layout = async ({ children }: LayoutProps) => {
   ).length
 
   return (
-    <div className='w-full flex h-screen bg-white'>
+    <div className='flex h-dvh w-full overflow-hidden bg-[#f5faf6]'>
       <div className='md:hidden'>
         <MobileChatLayout
           friends={friends}
@@ -57,84 +56,60 @@ const Layout = async ({ children }: LayoutProps) => {
         />
       </div>
 
-      <div className='hidden md:flex h-full w-full max-w-sm grow flex-col gap-y-5 overflow-y-auto border-r border-gray-100 bg-white px-6 shadow-[4px_0_24px_-12px_rgba(0,0,0,0.1)] z-10'>
-        <Link href='/dashboard' className='flex h-16 shrink-0 items-center gap-2'>
-          <Icons.Logo className='h-8 w-auto text-emerald-600' />
+      <aside className='z-10 hidden h-full w-[296px] shrink-0 flex-col border-r border-[#e5eee7] bg-white px-5 py-6 md:flex'>
+        <Link href='/dashboard' className='mb-8 flex shrink-0 items-center gap-3 rounded-2xl px-2 py-1'>
+          <Icons.Logo className='h-3.5 w-3.5 shrink-0' />
+          <span className='text-lg font-semibold tracking-[-0.04em] text-[#17271f]'>chitchat</span>
         </Link>
 
         {friends.length > 0 ? (
-          <div className='text-xs font-semibold leading-6 text-gray-400 tracking-wider uppercase'>
-            Your chats
+          <div className='mb-2 px-3 text-xs font-medium text-[#87958b]'>
+            Messages
           </div>
         ) : null}
 
-        <nav className='flex flex-1 flex-col'>
-          <ul role='list' className='flex flex-1 flex-col gap-y-7'>
-            <li>
-              <SidebarChatList sessionId={session.user.id} friends={friends} />
-            </li>
-            <li>
-              <div className='text-xs font-semibold leading-6 text-gray-400 tracking-wider uppercase'>
-                Overview
-              </div>
+        <SidebarChatList sessionId={session.user.id} friends={friends} />
 
-              <ul role='list' className='-mx-2 mt-2 space-y-1'>
-                {sidebarOptions.map((option) => {
-                  const Icon = Icons[option.Icon]
-                  return (
-                    <li key={option.id}>
-                      <Link
-                        href={option.href}
-                        className='text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 group flex gap-3 rounded-xl p-2 text-sm leading-6 font-semibold transition-all duration-200'>
-                        <span className='text-gray-400 border-gray-200 group-hover:border-emerald-600 group-hover:text-emerald-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white transition-colors duration-200'>
-                          <Icon className='h-4 w-4' />
-                        </span>
-
-                        <span className='truncate'>{option.name}</span>
-                      </Link>
-                    </li>
-                  )
-                })}
-
-                <li>
-                  <FriendRequestSidebarOptions
-                    sessionId={session.user.id}
-                    initialUnseenRequestCount={unseenRequestCount}
-                  />
+        <nav className='mt-8 flex flex-col'>
+          <div className='mb-2 px-3 text-xs font-medium text-[#87958b]'>People</div>
+          <ul role='list' className='space-y-1'>
+            {sidebarOptions.map((option) => {
+              const Icon = Icons[option.Icon]
+              return (
+                <li key={option.id}>
+                  <Link href={option.href} className='group flex items-center gap-3 rounded-full px-3 py-2.5 text-sm font-medium text-[#5f7065] transition-colors hover:bg-[#edf7f0] hover:text-[#0e7655]'>
+                    <span className='grid h-8 w-8 place-items-center rounded-full bg-[#f3f8f4] text-[#789082] transition-colors group-hover:bg-white group-hover:text-[#0e7655]'>
+                      <Icon className='h-4 w-4' />
+                    </span>
+                    <span className='truncate'>{option.name}</span>
+                  </Link>
                 </li>
-              </ul>
-            </li>
-
-            <li className='-mx-6 mt-auto flex items-center'>
-              <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50 transition-colors'>
-                <div className='relative h-8 w-8 bg-gray-50'>
-                  <Image
-                    fill
-                    referrerPolicy='no-referrer'
-                    className='rounded-full ring-2 ring-emerald-100'
-                    src={session.user.image || ''}
-                    alt='Your profile picture'
-                  />
-                </div>
-
-                <span className='sr-only'>Your profile</span>
-                <div className='flex flex-col'>
-                  <span aria-hidden='true'>{session.user.name}</span>
-                  <span className='text-xs text-zinc-400' aria-hidden='true'>
-                    {session.user.email}
-                  </span>
-                </div>
-              </div>
-
-              <SignOutButton className='h-full aspect-square hover:bg-red-50 hover:text-red-600 transition-colors' />
+              )
+            })}
+            <li>
+              <FriendRequestSidebarOptions
+                sessionId={session.user.id}
+                initialUnseenRequestCount={unseenRequestCount}
+              />
             </li>
           </ul>
         </nav>
-      </div>
 
-      <aside className='max-h-screen sm:container py-16 md:py-12 w-full bg-gray-50/50'>
-        {children}
+        <div className='mt-auto flex items-center gap-2 rounded-[1.4rem] bg-[#f5f9f5] p-2'>
+          <div className='relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-white'>
+            <Image fill referrerPolicy='no-referrer' className='object-cover' src={session.user.image || ''} alt='Your profile picture' />
+          </div>
+          <div className='min-w-0 flex-1'>
+            <span className='block truncate text-sm font-semibold text-[#26372c]'>{session.user.name}</span>
+            <span className='block truncate text-xs text-[#849188]'>{session.user.email}</span>
+          </div>
+          <SignOutButton className='grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#849188] transition-colors hover:bg-white hover:text-[#a54842]' />
+        </div>
       </aside>
+
+      <main className='min-h-0 min-w-0 flex-1 overflow-y-auto px-4 pb-6 pt-[76px] sm:px-6 md:px-8 md:py-8 lg:px-12'>
+        <div className='mx-auto min-h-full w-full max-w-6xl'>{children}</div>
+      </main>
     </div>
   )
 }

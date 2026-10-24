@@ -3,7 +3,7 @@ import { fetchRedis } from '@/helper/redis'
 import { authOptions } from '@/lib/auth'
 import { chatHrefConstructor } from '@/lib/utils'
 import { Message } from '@/lib/validators/message'
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, MessageCircle, UserPlus } from 'lucide-react'
 import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -34,30 +34,37 @@ const page = async ({}) => {
   )
 
   return (
-    <div className='container  py-12'>
-      <h1 className='font-bold text-5xl mb-8 tracking-tight text-gray-900'>Recent chats</h1>
+    <div className='py-2 md:py-4'>
+      <header className='mb-7 flex items-end justify-between gap-4 sm:mb-9'>
+        <div>
+          <h1 className='text-3xl font-semibold tracking-[-0.055em] text-[#17271f] sm:text-[2.6rem]'>Recent chats</h1>
+        </div>
+        <Link href='/dashboard/add' aria-label='Add a friend' className='grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#0e7655] text-white transition-transform hover:scale-105'><UserPlus className='h-[18px] w-[18px]' /></Link>
+      </header>
       {friendsWithLastMessage.length === 0 ? (
-        <p className='text-sm text-zinc-500'>Nothing to show here...</p>
+        <div className='flex min-h-64 flex-col items-center justify-center rounded-[2rem] bg-white px-6 py-12 text-center'>
+          <span className='mb-4 grid h-14 w-14 place-items-center rounded-full bg-[#e7f5eb] text-[#0e7655]'><MessageCircle className='h-6 w-6' /></span>
+          <h2 className='text-lg font-semibold tracking-tight text-[#24362a]'>No chats yet.</h2>
+          <Link href='/dashboard/add' className='mt-5 rounded-full bg-[#0e7655] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#0b6549]'>Find a friend</Link>
+        </div>
       ) : (
-        friendsWithLastMessage.map((friend) => (
+        <div className='space-y-2'>
+        {friendsWithLastMessage.map((friend) => (
           <div
             key={friend.id}
-            className='relative bg-white border border-gray-100 p-4 rounded-2xl shadow-sm hover:shadow-lg hover:border-emerald-100 transition-all duration-200 mb-3 group'>
-            <div className='absolute right-4 inset-y-0 flex items-center'>
-              <ChevronRight className='h-7 w-7 text-gray-300 group-hover:text-emerald-500 transition-colors' />
-            </div>
+            className='group relative rounded-[1.6rem] bg-white p-3 transition-colors hover:bg-[#fbfdfb] sm:p-4'>
 
             <Link
               href={`/dashboard/chat/${chatHrefConstructor(
                 session.user.id,
                 friend.id
               )}`}
-              className='relative sm:flex items-center gap-4'>
-              <div className='flex-shrink-0'>
-                <div className='relative h-12 w-12'>
+              className='relative flex items-center gap-3 sm:gap-4'>
+              <div className='shrink-0'>
+                <div className='relative h-12 w-12 overflow-hidden rounded-full bg-[#edf5ef] sm:h-14 sm:w-14'>
                   <Image
                     referrerPolicy='no-referrer'
-                    className='rounded-full ring-2 ring-white shadow-sm'
+                    className='object-cover'
                     alt={`${friend.name} profile picture`}
                     src={friend.image}
                     fill
@@ -65,10 +72,10 @@ const page = async ({}) => {
                 </div>
               </div>
 
-              <div className="flex-1 min-w-0">
-                <h4 className='text-lg font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors'>{friend.name}</h4>
-                <p className='mt-1 max-w-md truncate text-sm text-gray-500'>
-                  <span className='text-gray-400 font-medium'>
+              <div className='min-w-0 flex-1 pr-8'>
+                <h4 className='truncate text-[15px] font-semibold text-[#26372c] transition-colors group-hover:text-[#0e7655] sm:text-base'>{friend.name}</h4>
+                <p className='mt-1 truncate text-sm text-[#829087]'>
+                  <span className='font-medium text-[#9aa69d]'>
                     {friend.lastMessage.senderId === session.user.id
                       ? 'You: '
                       : ''}
@@ -76,9 +83,11 @@ const page = async ({}) => {
                   {friend.lastMessage.text}
                 </p>
               </div>
+              <ChevronRight className='absolute right-1 h-5 w-5 text-[#b3c0b6] transition-transform group-hover:translate-x-0.5 group-hover:text-[#0e7655]' />
             </Link>
           </div>
-        ))
+        ))}
+        </div>
       )}
     </div>
   )

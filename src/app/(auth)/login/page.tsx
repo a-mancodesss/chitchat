@@ -1,10 +1,10 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
+import BrandMark from '@/components/BrandMark'
 import { signIn } from "next-auth/react"
 import { useState } from "react"
 import toast from "react-hot-toast"
-import { MessageSquare } from "lucide-react"
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -22,24 +22,22 @@ const LoginPage = () => {
   }
 
   return (
-    <div className='min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-emerald-50 via-white to-green-50'>
-      <div className='w-full max-w-md space-y-8 bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-green-100'>
+    <div className='relative flex min-h-dvh items-center justify-center overflow-hidden bg-[#f5faf6] px-4 py-12 sm:px-6'>
+      <div className='relative w-full max-w-[430px] space-y-8 rounded-[2rem] bg-white p-7 sm:p-10'>
         <div className='flex flex-col items-center text-center'>
-          <div className="rounded-2xl bg-emerald-50 p-4 mb-6">
-            <MessageSquare className="h-10 w-10 text-emerald-600" />
-          </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 mb-2">
+          <BrandMark className='mb-6 h-3.5 w-3.5' />
+          <h1 className='mb-2 text-2xl font-semibold tracking-[-0.06em] text-[#17271f] sm:text-3xl'>
             ChitChat
           </h1>
-          <h2 className='text-lg text-gray-500 font-medium'>
-            Sign in to your account to continue
+          <h2 className='text-sm font-medium text-[#64736a]'>
+            A softer space for good conversations.
           </h2>
         </div>
 
         <div className="mt-8 space-y-6">
           <Button
             size='lg'
-            className="w-full h-14 text-base font-semibold bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-100 hover:border-emerald-100 transition-all duration-200 rounded-xl shadow-sm hover:shadow-md"
+            className='h-14 w-full rounded-full border border-[#e5eee7] bg-[#f8fbf8] text-base font-semibold text-[#26372c] shadow-none transition-colors duration-200 hover:border-[#cfe5d5] hover:bg-[#f2f8f3]'
             isLoading={isLoading}
             onClick={loginWithGoogle}
           >
@@ -49,7 +47,7 @@ const LoginPage = () => {
                 aria-hidden='true'
                 focusable='false'
                 data-prefix='fab'
-                data-icon='github'
+                data-icon='google'
                 role='img'
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'>
@@ -75,10 +73,6 @@ const LoginPage = () => {
             Continue with Google
           </Button>
         </div>
-        
-        <p className="text-center text-xs text-gray-400 mt-8">
-          By clicking continue, you agree to our <a href="#" className="underline hover:text-emerald-600">Terms of Service</a> and <a href="#" className="underline hover:text-emerald-600">Privacy Policy</a>.
-        </p>
       </div>
     </div>
   )

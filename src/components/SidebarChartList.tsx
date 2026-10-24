@@ -8,6 +8,8 @@ import { toast } from 'react-hot-toast'
 import UnseenChatToast from './UnseenChatToast'
 import { User } from '@/types/db'
 import { Message } from '@/lib/validators/message'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface SidebarChatListProps {
   friends: User[]
@@ -76,27 +78,29 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
   }, [pathname])
 
   return (
-    <ul role='list' className='max-h-[25rem] overflow-y-auto -mx-2 space-y-1'>
-      {activeChats.sort().map((friend) => {
+    <ul role='list' className='-mx-1 max-h-[min(48vh,32rem)] space-y-1 overflow-y-auto pr-1'>
+      {activeChats.slice().sort((a, b) => a.name.localeCompare(b.name)).map((friend) => {
         const unseenMessagesCount = unseenMessages.filter((unseenMsg) => {
           return unseenMsg.senderId === friend.id
         }).length
+        const href = `/dashboard/chat/${chatHrefConstructor(sessionId, friend.id)}`
+        const isActive = pathname === href
 
         return (
           <li key={friend.id}>
-            <a
-              href={`/dashboard/chat/${chatHrefConstructor(
-                sessionId,
-                friend.id
-              )}`}
-              className='text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 group flex items-center gap-x-3 rounded-xl p-2 text-sm leading-6 font-semibold transition-all duration-200'>
-              {friend.name}
+            <Link
+              href={href}
+              className={`group flex items-center gap-3 rounded-full px-2.5 py-2 text-sm transition-colors ${isActive ? 'bg-[#e7f5eb] font-semibold text-[#0e7655]' : 'font-medium text-[#65756a] hover:bg-[#f1f7f2] hover:text-[#0e7655]'}`}>
+              <span className='relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-[#edf5ef]'>
+                <Image fill src={friend.image} alt='' referrerPolicy='no-referrer' className='object-cover' />
+              </span>
+              <span className='min-w-0 flex-1 truncate'>{friend.name}</span>
               {unseenMessagesCount > 0 ? (
-                <div className='bg-emerald-600 font-medium text-xs text-white w-4 h-4 rounded-full flex justify-center items-center shadow-sm'>
+                <span className='grid h-5 min-w-5 place-items-center rounded-full bg-[#0e7655] px-1 text-[10px] font-semibold text-white'>
                   {unseenMessagesCount}
-                </div>
+                </span>
               ) : null}
-            </a>
+            </Link>
           </li>
         )
       })}

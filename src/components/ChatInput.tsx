@@ -37,8 +37,8 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
   }
 
   return (
-    <div className='border-t border-gray-100 px-4 pt-4 mb-2 sm:mb-0'>
-      <div className='relative flex-1 overflow-hidden rounded-2xl shadow-sm ring-1 ring-inset ring-gray-200 focus-within:ring-2 focus-within:ring-emerald-500 bg-gray-50 transition-all duration-200'>
+    <div className='border-t border-[#edf1ed] px-3 pb-3 pt-3 sm:px-5 sm:pb-4 sm:pt-4'>
+      <div className='relative flex-1 overflow-hidden rounded-full bg-[#f7faf7] ring-1 ring-inset ring-[#e7eee8] transition-all focus-within:bg-white focus-within:ring-2 focus-within:ring-[#0e7655]'>
         <TextareaAutosize
           ref={textareaRef}
           onKeyDown={(e) => {
@@ -51,21 +51,12 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={`Message ${chatPartner.name}`}
-          className='block w-full resize-none border-0 bg-transparent text-gray-900 placeholder:text-gray-400 focus:outline-none py-3 px-4 pr-14 sm:text-sm sm:leading-6'
+          className='block max-h-36 min-h-12 w-full resize-none border-0 bg-transparent py-[14px] pl-5 pr-16 text-sm leading-5 text-[#26372c] placeholder:text-[#a1aca4] focus:outline-none sm:pl-6'
         />
-
-        <div
-          onClick={() => textareaRef.current?.focus()}
-          className='py-2'
-          aria-hidden='true'>
-          <div className='py-px'>
-            <div className='h-9' />
-          </div>
-        </div>
 
         <div className='absolute right-2 bottom-2'>
           <Button 
-            className='rounded-xl bg-emerald-600 hover:bg-emerald-700 h-10 w-10 p-0 flex items-center justify-center transition-colors shadow-sm' 
+            className='flex h-9 w-9 items-center justify-center rounded-full bg-[#0e7655] p-0 text-white shadow-none transition-colors hover:bg-[#0b6549]'
             isLoading={isLoading} 
             onClick={sendMessage} 
             type='submit'
