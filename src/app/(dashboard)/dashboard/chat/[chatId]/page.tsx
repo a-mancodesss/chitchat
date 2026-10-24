@@ -1,5 +1,4 @@
-import ChatInput from '@/components/ChatInput'
-import Messages from '@/components/Messages'
+import Chat from '@/components/Chat'
 import { fetchRedis } from '@/helper/redis'
 import { authOptions } from '@/lib/auth'
 import { messageArrayValidator } from '@/lib/validators/message'
@@ -99,14 +98,13 @@ export default async function Page(props:{params:Params}) {
         </div>
       </div>
 
-      <Messages
+      <Chat
         chatId={chatId}
         chatPartner={chatPartner}
         sessionImg={session.user.image}
         sessionId={session.user.id}
         initialMessages={initialMessages}
       />
-      <ChatInput chatId={chatId} chatPartner={chatPartner} />
     </div>
   )
 }

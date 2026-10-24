@@ -4,14 +4,15 @@ import { db } from '@/lib/db'
 import { pusherServer } from '@/lib/pusher'
 import { toPusherKey } from '@/lib/utils'
 import { Message, messageValidator } from '@/lib/validators/message'
-import { User } from '@/types/db'
 import { nanoid } from 'nanoid'
 import { getServerSession } from 'next-auth'
 
 export async function POST(req: Request) {
   try {
-    const { text, chatId }: { text: string; chatId: string } = await req.json()
-    const session = await getServerSession(authOptions)
+    const [{ text, chatId, messageId }, session] = await Promise.all([
+      req.json(),
+      getServerSession(authOptions),
+    ])
 
     if (!session) return new Response('Unauthorized', { status: 401 })
 
@@ -23,22 +24,23 @@ export async function POST(req: Request) {
 
     const friendId = session.user.id === userId1 ? userId2 : userId1
 
-    // Parallel fetch: friend list + sender info
-    const [friendList, rawSender] = await Promise.all([
-      fetchRedis('smembers', `user:${session.user.id}:friends`) as Promise<string[]>,
-      fetchRedis('get', `user:${session.user.id}`) as Promise<string>,
-    ])
-
-    const isFriend = friendList.includes(friendId)
+    const isFriend = await fetchRedis(
+      'sismember',
+      `user:${session.user.id}:friends`,
+      friendId
+    )
     if (!isFriend) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    const sender = JSON.parse(rawSender) as User
     const timestamp = Date.now()
+    const id =
+      typeof messageId === 'string' && messageId.length > 0 && messageId.length <= 64
+        ? messageId
+        : nanoid()
 
     const messageData: Message = {
-      id: nanoid(),
+      id,
       senderId: session.user.id,
       text,
       timestamp,
@@ -46,14 +48,24 @@ export async function POST(req: Request) {
 
     const message = messageValidator.parse(messageData)
 
-    // Parallel: Pusher notifications + Redis persistence
+    // Batch notifications into one Pusher request while persisting in parallel.
     await Promise.all([
-      pusherServer.trigger(toPusherKey(`chat:${chatId}`), 'incoming-message', message),
-      pusherServer.trigger(toPusherKey(`user:${friendId}:chats`), 'new_message', {
-        ...message,
-        senderImg: sender.image,
-        senderName: sender.name,
-      }),
+      pusherServer.triggerBatch([
+        {
+          channel: toPusherKey(`chat:${chatId}`),
+          name: 'incoming-message',
+          data: message,
+        },
+        {
+          channel: toPusherKey(`user:${friendId}:chats`),
+          name: 'new_message',
+          data: {
+            ...message,
+            senderImg: session.user.image ?? '',
+            senderName: session.user.name ?? 'Someone',
+          },
+        },
+      ]),
       db.zadd(`chat:${chatId}:messages`, {
         score: timestamp,
         member: JSON.stringify(message),

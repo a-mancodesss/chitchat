@@ -1,6 +1,5 @@
 'use client'
 
-import axios from 'axios'
 import { FC, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -10,10 +9,10 @@ import { Send } from 'lucide-react'
 
 interface ChatInputProps {
   chatPartner: User
-  chatId: string
+  onSend: (text: string) => Promise<void>
 }
 
-const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
+const ChatInput: FC<ChatInputProps> = ({ chatPartner, onSend }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [input, setInput] = useState<string>('')
@@ -26,7 +25,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     setIsLoading(true)
 
     try {
-      await axios.post('/api/message/send', { text: messageText, chatId })
+      await onSend(messageText)
       textareaRef.current?.focus()
     } catch {
       setInput(messageText) // Rollback on error
